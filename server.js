@@ -9,7 +9,7 @@ const app = express();
 // Middleware config for upload
 app.use(upload({
     useTempFiles : true,
-    tempFileDir : '/filestore/'
+    tempFileDir : './filestore/'
 }));
 
 
@@ -32,14 +32,14 @@ app.post("/mp4tomp3",(req,res)=>{
 
     //UPLOADED FILE
 
-    req.files.mp4.mv("filestore/" + req.files.mp4.name, (err)=>{
+    req.files.mp4.mv("./filestore/" + req.files.mp4.name, (err)=>{
         if(err)console.log(err);
         console.log("File uploaded");
     })
 
     //CONVERSION
 
-    ffmpeg("filestore/" + req.files.mp4.name)
+    ffmpeg("./filestore/" + req.files.mp4.name)
     .toFormat("mp3")
     .on("end",()=>console.log("Conversion Done !"))
     .on("error",(err)=>console.log(err))
